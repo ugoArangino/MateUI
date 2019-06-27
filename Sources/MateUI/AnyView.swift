@@ -5,3 +5,9 @@ public extension View {
         return AnyView(self)
     }
 }
+
+extension AnyView {
+    static var empty: AnyView {
+        EmptyView().eraseToAnyView()
+    }
+}
