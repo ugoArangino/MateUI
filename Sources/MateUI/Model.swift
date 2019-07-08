@@ -1,7 +1,7 @@
 import SwiftUI
 
 public extension View {
-    func modal() -> Modal {
-        return Modal(self)
+    func modal(onDismiss: (() -> Void)? = nil) -> Modal {
+        return Modal(self, onDismiss: onDismiss)
     }
 }
