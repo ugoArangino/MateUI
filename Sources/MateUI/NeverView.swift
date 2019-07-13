@@ -14,4 +14,8 @@ public struct NeverView: View {
     public static func render(_: Void) -> NeverView {
         return NeverView()
     }
+
+    public static func builder() -> Never { fatalError("This builder will never be called.") }
+
+    public static func builderWithArgument(_: Never) -> Never {}
 }
