@@ -60,6 +60,6 @@ public struct TextView: View {
                     .foregroundColor(.gray)
             }
         }
-        .background(text.wrappedValue.isEmpty ? Color.red : Color.blue)
+            .background(text.wrappedValue.isEmpty ? Color.red : Color.blue)
     }
 }
