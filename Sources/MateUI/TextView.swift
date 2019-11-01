@@ -2,10 +2,10 @@ import SwiftUI
 import UIKit
 
 private struct _TextView: UIViewRepresentable {
-    @Binding private var text: String
+    private var text: Binding<String>
 
     init(_ text: Binding<String>) {
-        $text = text
+        self.text = text
     }
 
     func makeUIView(context: Context) -> UITextView {
@@ -21,45 +21,45 @@ private struct _TextView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: UITextView, context _: Context) {
-        uiView.text = text
+        uiView.text = text.wrappedValue
     }
 
     func makeCoordinator() -> _TextView.Coordinator {
-        Coordinator($text)
+        Coordinator(text)
     }
 
     // MARK: Coordinator
 
     class Coordinator: NSObject, UITextViewDelegate {
-        @Binding private var text: String
+        private var text: Binding<String>
 
         init(_ text: Binding<String>) {
-            $text = text
+            self.text = text
         }
 
         func textViewDidChangeSelection(_ textView: UITextView) {
-            text = textView.text
+            text.wrappedValue = textView.text
         }
     }
 }
 
 public struct TextView: View {
-    @Binding private var text: String
+    private var text: Binding<String>
     private let placeholder: Text?
 
     public init(_ text: Binding<String>, placeholder: Text? = nil) {
-        $text = text
+        self.text = text
         self.placeholder = placeholder
     }
 
     public var body: some View {
-        ZStack(alignment: .topLeading) {
-            _TextView($text)
-            if text.isEmpty {
+        ZStack(alignment: Alignment.topLeading) {
+            _TextView(text)
+            if text.wrappedValue.isEmpty {
                 placeholder?
-                    .color(.gray)
+                    .foregroundColor(.gray)
             }
         }
-        .background(text.isEmpty ? Color.red : Color.blue)
+        .background(text.wrappedValue.isEmpty ? Color.red : Color.blue)
     }
 }

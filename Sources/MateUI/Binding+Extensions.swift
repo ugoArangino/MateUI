@@ -5,18 +5,18 @@ public extension Binding {
         get: @escaping (Value) -> V,
         set: @escaping (V) -> Value
     ) -> Binding<V> {
-        .init(getValue: { () -> V in
-            get(self.value)
+        .init(get: { () -> V in
+            get(self.wrappedValue)
         }) { newValue in
-            self.value = set(newValue)
+            self.wrappedValue = set(newValue)
         }
     }
 
     func argumented(didChange: @escaping () -> Void) -> Binding {
-        .init(getValue: { () -> Value in
-            self.value
+        .init(get: { () -> Value in
+            self.wrappedValue
         }) { newValue in
-            self.value = newValue
+            self.wrappedValue = newValue
             didChange()
         }
     }
@@ -24,13 +24,13 @@ public extension Binding {
 
 public extension Binding where Value == String? {
     func some(_ default: String = "") -> Binding<String> {
-        .init(getValue: { () -> String in
-            self.value ?? `default`
+        .init(get: { () -> String in
+            self.wrappedValue ?? `default`
         }) { newValue in
             if newValue == `default` {
-                self.value = nil
+                self.wrappedValue = nil
             } else {
-                self.value = newValue
+                self.wrappedValue = newValue
             }
         }
     }

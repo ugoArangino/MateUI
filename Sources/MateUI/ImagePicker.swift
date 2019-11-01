@@ -1,38 +1,39 @@
 import SwiftUI
 
 public struct ImagePicker: UIViewControllerRepresentable {
-    @Binding var isShown: Bool
-    @Binding var image: UIImage?
+    var isShown: Binding<Bool>
+    var image: Binding<UIImage?>
 
     public init(isShown: Binding<Bool>, image: Binding<UIImage?>) {
-        $isShown = isShown
-        $image = image
+        self.isShown = isShown
+        self.image = image
     }
 
     public class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        @Binding var isShown: Bool
-        @Binding var image: UIImage?
+        var isShown: Binding<Bool>
+        var image: Binding<UIImage?>
 
         init(isShown: Binding<Bool>, image: Binding<UIImage?>) {
-            $isShown = isShown
-            $image = image
+            self.isShown = isShown
+            self.image = image
         }
 
         public func imagePickerController(
             _: UIImagePickerController,
             didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
         ) {
-            image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-            isShown = false
+            image.wrappedValue = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+            isShown.wrappedValue = false
         }
 
         public func imagePickerControllerDidCancel(_: UIImagePickerController) {
-            isShown = false
+            image.wrappedValue = nil
+            isShown.wrappedValue = false
         }
     }
 
     public func makeCoordinator() -> Coordinator {
-        return Coordinator(isShown: $isShown, image: $image)
+        return Coordinator(isShown: isShown, image: image)
     }
 
     public func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePicker>) -> UIImagePickerController {
