@@ -21,7 +21,7 @@ public struct ImageThumbnail: View {
                     .scaledToFill()
             } else {
                 ZStack {
-                    Color.primary
+                    Color.gray.opacity(0.35)
                     placeholderImage
                         .foregroundColor(.primary)
                         .colorInvert()
