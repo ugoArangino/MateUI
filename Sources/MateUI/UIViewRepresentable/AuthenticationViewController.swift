@@ -2,7 +2,6 @@ import AuthenticationServices
 import UIKit
 
 public class AuthenticationViewController: UIViewController {
-
     public typealias Complection = (Result<String, Error>) -> Void
 
     private var session: ASWebAuthenticationSession?
@@ -17,11 +16,11 @@ public class AuthenticationViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
 
-    required init?(coder: NSCoder) {
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override public func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
 
         let session = ASWebAuthenticationSession(url: authenticationURL, callbackURLScheme: callbackURLScheme)
@@ -33,7 +32,7 @@ public class AuthenticationViewController: UIViewController {
             }
 
             let queryItems = URLComponents(string: callbackURL.absoluteString)?.queryItems
-            let code = queryItems?.filter({ $0.name == "code" }).first?.value
+            let code = queryItems?.filter { $0.name == "code" }.first?.value
             self.complection(.success(code!))
         }
 
@@ -46,7 +45,7 @@ public class AuthenticationViewController: UIViewController {
 }
 
 extension AuthenticationViewController: ASWebAuthenticationPresentationContextProviding {
-    public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+    public func presentationAnchor(for _: ASWebAuthenticationSession) -> ASPresentationAnchor {
         .init()
     }
 }

@@ -1,7 +1,6 @@
 import SwiftUI
 
 public struct AuthenticationView: UIViewControllerRepresentable {
-
     public typealias Complection = AuthenticationViewController.Complection
 
     private let authenticationURL: URL
@@ -14,13 +13,12 @@ public struct AuthenticationView: UIViewControllerRepresentable {
         self.complection = complection
     }
 
-    public func makeUIViewController(context: UIViewControllerRepresentableContext<Self>)
-        -> AuthenticationViewController
-    {
+    public func makeUIViewController(context _: UIViewControllerRepresentableContext<Self>)
+        -> AuthenticationViewController {
         .init(authenticationURL: authenticationURL, callbackURLScheme: callbackURLScheme, complection: complection)
     }
 
     public func updateUIViewController(
-        _ uiViewController: AuthenticationViewController, context: UIViewControllerRepresentableContext<Self>
+        _: AuthenticationViewController, context _: UIViewControllerRepresentableContext<Self>
     ) {}
 }

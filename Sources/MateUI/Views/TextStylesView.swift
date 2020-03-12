@@ -6,7 +6,7 @@ extension Font.TextStyle: Identifiable {
     }
 }
 
-public struct TextStyles: View {
+public struct TextStylesView: View {
     private let all: [Font.TextStyle] = [
         .largeTitle,
         .title,

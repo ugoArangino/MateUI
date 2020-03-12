@@ -20,6 +20,15 @@ public extension Binding {
             didChange()
         }
     }
+
+    func argumented(didChange: @escaping (Value) -> Void) -> Binding {
+        .init(get: { () -> Value in
+            self.wrappedValue
+        }) { newValue in
+            self.wrappedValue = newValue
+            didChange(newValue)
+        }
+    }
 }
 
 public extension Binding where Value == String? {
