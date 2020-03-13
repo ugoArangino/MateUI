@@ -6,16 +6,13 @@ public struct TagView: View {
 
     private let value: String?
     private let icon: Image?
-    private let color: Color
 
     public init(
         _ value: String? = nil,
-        icon: Image? = nil,
-        color: Color = Color.accentColor
+        icon: Image? = nil
     ) {
         self.value = value
         self.icon = icon
-        self.color = color
     }
 
     public var body: some View {
@@ -33,7 +30,7 @@ public struct TagView: View {
                 .foregroundColor(.white)
                 .padding(.vertical, value != nil ? 4 : 8)
                 .padding(.horizontal, 8)
-                .background(color)
+                .background(Color.accentColor)
                 .cornerRadius(cornerRadius)
             } else {
                 EmptyView()
@@ -48,9 +45,9 @@ public struct TagView: View {
             HStack {
                 TagView(
                     "1",
-                    icon: Image(systemName: "number.circle.fill"),
-                    color: .orange
+                    icon: Image(systemName: "number.circle.fill")
                 )
+                .accentColor(.orange)
                 TagView(
                     "test"
                 )
